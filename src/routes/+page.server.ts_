@@ -1,0 +1,10 @@
+import type { Load } from '@sveltejs/kit';
+
+export const load: Load = async () => {
+  throw new Response(null, {
+    status: 301,
+    headers: {
+      Location: '/' // Redirect to this route
+    }
+  });
+};
