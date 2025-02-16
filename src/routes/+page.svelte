@@ -1,48 +1,42 @@
-<script lang="ts">
-	import Nested from '../lib/components/Nested.svelte';
-	let name = 'Rick Astley';
-	let src = 'https://media.tenor.com/o656qFKDzeUAAAAM/rick-astley-never-gonna-give-you-up.gif';
+<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<progress class="progress progress-primary w-56" value="0" max="100"></progress>
+<progress class="progress progress-primary w-56" value="10" max="100"></progress>
+<progress class="progress progress-primary w-56" value="40" max="100"></progress>
+<progress class="progress progress-primary w-56" value="70" max="100"></progress>
+<progress class="progress progress-primary w-56" value="100" max="100"></progress>
+<style lang="postcss">
+    @reference "tailwindcss/theme";
 
-	// Insert html directly
-	let string = `this string contains some <strong>HTML!!!</strong>`;
-
-	// State with runes
-	let count = $state(0);
-	let numbers = $state([1, 2, 3, 4]);
-	function increment() {
-		count += 1;
-	}
-	// Deep state
-	function addNumber() {
-		numbers.push(numbers.length + 1);
-	}
-	// Derive state
-	let total = $derived(numbers.reduce((t, n) => t + n, 0));
-</script>
-
-<h1>Welcome to SvelteKit {name.toUpperCase()}</h1>
-<Nested />
-<img {src} alt="{name} dances" />
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-<p>{@html string}</p>
-
-<!-- State with runes -->
-<button onclick={increment}>
-	Clicked {count}
-	{count === 1 ? 'time' : 'times'}
-</button>
-<!-- Deep state with runes -->
-<p>{numbers.join(' + ')} = ...</p>
-<button onclick={addNumber}> Add a number </button>
-<!-- Derive state with runes -->
-<p><br /></p>
-<p>{numbers.join(' + ')} = {total}</p>
-<!-- <button> -->
-
-<style>
-	p {
-		color: goldenrod;
-		font-family: 'Comic Sans MS';
-		font-size: 2em;
-	}
+    :global(html) {
+        background-color: theme(--color-gray-100);
+    }
 </style>
+
+<input type="radio" name="radio-2" class="radio radio-xs" checked="checked" />
+<input type="radio" name="radio-2" class="radio radio-sm" checked="checked" />
+<input type="radio" name="radio-2" class="radio radio-md" checked="checked" />
+<input type="radio" name="radio-2" class="radio radio-lg" checked="checked" />
+<input type="radio" name="radio-2" class="radio radio-xl" checked="checked" />
+
+<footer class="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
+  <nav>
+    <h6 class="footer-title">Services</h6>
+    <a class="link link-hover">Branding</a>
+    <a class="link link-hover">Design</a>
+    <a class="link link-hover">Marketing</a>
+    <a class="link link-hover">Advertisement</a>
+  </nav>
+  <nav>
+    <h6 class="footer-title">Company</h6>
+    <a class="link link-hover">About us</a>
+    <a class="link link-hover">Contact</a>
+    <a class="link link-hover">Jobs</a>
+    <a class="link link-hover">Press kit</a>
+  </nav>
+  <nav>
+    <h6 class="footer-title">Legal</h6>
+    <a class="link link-hover">Terms of use</a>
+    <a class="link link-hover">Privacy policy</a>
+    <a class="link link-hover">Cookie policy</a>
+  </nav>
+</footer>
