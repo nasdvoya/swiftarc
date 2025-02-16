@@ -1,5 +1,6 @@
 <script>
     import Input from '$lib/Input.svelte';
+    import Checkbox from '$lib/Checkbox.svelte';
 </script>
 
 <div class="max-w-4xl mx-auto p-6">
@@ -11,7 +12,7 @@
                 <Input name="nome" label="Nome" placeholder="John Doe" />
                 <Input name="email" label="Email" type="email" placeholder="johndoe@example.com" />
                 <Input name="horario" label="Horário" placeholder="HH:MM" />
-                <Input name="doador" label="Doador" type="checkbox" />
+                <Checkbox name="doador" label="Doador" />
                 <Input name="local_cobranca" label="Local de Cobrança" placeholder="Local de Cobrança" />
             </div>
             <!-- Right Column -->
