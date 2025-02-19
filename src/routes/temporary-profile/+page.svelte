@@ -20,12 +20,28 @@
         observacoes: ''
     });
 
+    function isValidPhoneNumber(phone: string): boolean {
+        const portuguesePhonePattern = /^(?:\+351\s?)?(9\d{8}|2\d{8})$/;
+        return portuguesePhonePattern.test(phone.trim());
+    }
+
     let isDisabled = $derived(
         () =>
-            formData.telemovel.trim() !== '' ||
-            formData.tel_residencial.trim() !== '' ||
-            formData.tel_trabalho.trim() !== ''
+            (formData.telemovel.trim() !== '' && isValidPhoneNumber(formData.telemovel)) ||
+            (formData.tel_residencial.trim() !== '' && isValidPhoneNumber(formData.tel_residencial)) ||
+            (formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
     );
+
+    // Validation states
+    let invalidPhone = {
+        telemovel: false,
+        tel_residencial: false,
+        tel_trabalho: false
+    };
+
+    function validatePhone(field: keyof typeof invalidPhone) {
+        invalidPhone[field] = formData[field].trim() !== '' && !isValidPhoneNumber(formData[field]);
+    }
 
     let isLoading = false;
     let successMessage = '';
@@ -85,13 +101,14 @@
                 <Input name="concelho" label="Concelho" placeholder="Concelho" bind:value={formData.concelho} />
                 <Input name="codigo_postal" label="C.P." placeholder="Código Postal"
                     bind:value={formData.codigo_postal} />
-                <PhoneInput name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial" required
-                    bind:value={formData.tel_residencial} />
-                <PhoneInput name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho"
-                    bind:value={formData.tel_trabalho} />
-                <PhoneInput name="telemovel" label="Telemóvel" placeholder="Telemóvel"
-                    bind:value={formData.telemovel} />
+
+                <!-- Phone Inputs with validation -->
+                <PhoneInput name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial"
+                    required />
+                <PhoneInput name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho" />
+                <PhoneInput name="telemovel" label="Telemóvel" placeholder="Telemóvel" />
             </div>
+
             <div class="col-span-2">
                 <div class="flex items-center mb-6">
                     <textarea name="observacoes" placeholder="Observações"
@@ -99,10 +116,12 @@
                         bind:value={formData.observacoes}></textarea>
                 </div>
             </div>
+
             <button type="button"
                 class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg fixed rounded-full bottom-11 left-10 h-20 mb-14">
                 Cancelar
             </button>
+
             <button type="submit"
                 class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
                 disabled={!isDisabled()}>

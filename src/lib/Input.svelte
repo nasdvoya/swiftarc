@@ -13,7 +13,4 @@
     {/if}
     <input id={name} {name} {type} {placeholder} {title} bind:value
         class="input input-bordered focus:outline-none rounded-lg w-2/3" />
-    <!-- {#if errorMessage} -->
-    <!-- <p class="text-red-500 text-sm mt-1">{errorMessage}</p> -->
-    <!-- {/if} -->
 </div>
