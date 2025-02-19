@@ -7,6 +7,7 @@
     export let value: string = '';
     export let title: string = 'Número de telefone inválido';
     export let required: boolean = false;
+    export let maxlength: number = 9;
 
     let isValid = true;
 
@@ -21,7 +22,7 @@
         {#if label}
         <label for={name} class="w-1/3 text-gray-700 font-semibold">{label}</label>
         {/if}
-        <input id={name} {name} {type} {placeholder} {title} bind:value {required} class="input input-bordered focus:outline-none rounded-lg w-2/3 transition-all duration-150 ease-in-out {isValid
+        <input id={name} {name} {type} {placeholder} {title} {maxlength} bind:value {required} class="input input-bordered focus:outline-none rounded-lg w-2/3 transition-all duration-150 ease-in-out {isValid
 				? ''
 				: 'border-red-500 animate-shake'}" on:blur={validate} />
     </div>

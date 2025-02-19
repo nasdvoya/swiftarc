@@ -32,7 +32,6 @@
             (formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
     );
 
-    // Validation states
     let invalidPhone = {
         telemovel: false,
         tel_residencial: false,
@@ -102,11 +101,13 @@
                 <Input name="codigo_postal" label="C.P." placeholder="Código Postal"
                     bind:value={formData.codigo_postal} />
 
-                <!-- Phone Inputs with validation -->
+                <!-- Phone Inputs with consistent spacing -->
                 <PhoneInput name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial"
-                    required />
-                <PhoneInput name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho" />
-                <PhoneInput name="telemovel" label="Telemóvel" placeholder="Telemóvel" />
+                    bind:value={formData.tel_residencial} required />
+                <PhoneInput name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho"
+                    bind:value={formData.tel_trabalho} />
+                <PhoneInput name="telemovel" label="Telemóvel" placeholder="Telemóvel"
+                    bind:value={formData.telemovel} />
             </div>
 
             <div class="col-span-2">
