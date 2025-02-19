@@ -1,6 +1,5 @@
 <script lang="ts">
     import Input from '$lib/Input.svelte';
-    import PhoneInput from '$lib/PhoneInput.svelte';
     import Checkbox from '$lib/Checkbox.svelte';
     import {onMount} from 'svelte';
 
@@ -32,22 +31,12 @@
             (formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
     );
 
-    let invalidPhone = {
-        telemovel: false,
-        tel_residencial: false,
-        tel_trabalho: false
-    };
-
-    function validatePhone(field: keyof typeof invalidPhone) {
-        invalidPhone[field] = formData[field].trim() !== '' && !isValidPhoneNumber(formData[field]);
-    }
-
     let isLoading = false;
     let successMessage = '';
     let errorMessage = '';
 
     async function handleSubmit(event: Event) {
-        event.preventDefault(); // Prevent default form submission behavior
+        event.preventDefault();
 
         isLoading = true;
         successMessage = '';
@@ -81,12 +70,13 @@
     <h2 class="text-5xl font-bold mb-12 text-center">Perfil temporário</h2>
 
     <form onsubmit={handleSubmit}>
-        <div class="grid grid-cols-2 gap-8 text-left">
+        <div class="grid grid-cols-2 gap-x-8 gap-y-4 text-left">
             <!-- Left Column -->
             <div>
                 <Input name="nome" label="Nome" placeholder="John Doe" bind:value={formData.nome} />
                 <Input name="email" label="Email" type="email" placeholder="johndoe@example.com"
-                    bind:value={formData.email} />
+                    bind:value={formData.email} pattern="^[^@]+@[^@]+\.[^@]+$" required
+                    errorMessage="Email inválido!" />
                 <Input name="horario" label="Horário" placeholder="HH:MM" bind:value={formData.horario} />
                 <Checkbox name="doador" label="Doador" bind:checked={formData.doador} />
                 <Input name="local_cobranca" label="Local de Cobrança" placeholder="Local de Cobrança"
@@ -98,16 +88,17 @@
                 <Input name="morada" label="Morada" placeholder="Morada" bind:value={formData.morada} />
                 <Input name="freguesia" label="Freguesia" placeholder="Freguesia" bind:value={formData.freguesia} />
                 <Input name="concelho" label="Concelho" placeholder="Concelho" bind:value={formData.concelho} />
-                <Input name="codigo_postal" label="C.P." placeholder="Código Postal"
-                    bind:value={formData.codigo_postal} />
+                <Input name="codigo_postal" label="C.P." placeholder="Código Postal" bind:value={formData.codigo_postal}
+                    maxlength={8} required errorMessage="Código Postal inválido!" />
 
-                <!-- Phone Inputs with consistent spacing -->
-                <PhoneInput name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial"
-                    bind:value={formData.tel_residencial} required />
-                <PhoneInput name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho"
-                    bind:value={formData.tel_trabalho} />
-                <PhoneInput name="telemovel" label="Telemóvel" placeholder="Telemóvel"
-                    bind:value={formData.telemovel} />
+                <Input name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial"
+                    bind:value={formData.tel_residencial} pattern="^(9\d{8}|2\d{8})$" maxlength={9}
+                    errorMessage="Número de telefone inválido!" />
+                <Input name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho"
+                    bind:value={formData.tel_trabalho} pattern="^(9\d{8}|2\d{8})$" maxlength={9}
+                    errorMessage="Número de telefone inválido!" />
+                <Input name="telemovel" label="Telemóvel" placeholder="Telemóvel" bind:value={formData.telemovel}
+                    pattern="^(9\d{8}|2\d{8})$" maxlength={9} errorMessage="Número de telefone inválido!" />
             </div>
 
             <div class="col-span-2">

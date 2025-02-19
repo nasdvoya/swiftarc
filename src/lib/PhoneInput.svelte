@@ -17,7 +17,7 @@
     }
 </script>
 
-<div class="flex flex-col mb-3">
+<div class="flex flex-col mb-3 ">
     <div class="flex items-center">
         {#if label}
         <label for={name} class="w-1/3 text-gray-700 font-semibold">{label}</label>
