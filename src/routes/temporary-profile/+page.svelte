@@ -1,5 +1,6 @@
 <script lang="ts">
     import Input from '$lib/Input.svelte';
+    import PhoneInput from '$lib/PhoneInput.svelte';
     import Checkbox from '$lib/Checkbox.svelte';
     import {onMount} from 'svelte';
 
@@ -64,7 +65,7 @@
 <div class="max-w-4xl mx-auto p-6">
     <h2 class="text-5xl font-bold mb-12 text-center">Perfil temporário</h2>
 
-    <form on:submit={handleSubmit}>
+    <form onsubmit={handleSubmit}>
         <div class="grid grid-cols-2 gap-8 text-left">
             <!-- Left Column -->
             <div>
@@ -84,13 +85,12 @@
                 <Input name="concelho" label="Concelho" placeholder="Concelho" bind:value={formData.concelho} />
                 <Input name="codigo_postal" label="C.P." placeholder="Código Postal"
                     bind:value={formData.codigo_postal} />
-                <Input name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial"
-                    pattern="^(9\d{8}|2\d{8})$"
-                    title="Número de telefone português deve ter 9 dígitos e começar com 9 ou 2." required
+                <PhoneInput name="tel_residencial" label="Tel. Residencial" placeholder="Telefone Residencial" required
                     bind:value={formData.tel_residencial} />
-                <Input name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho"
+                <PhoneInput name="tel_trabalho" label="Tel. Trabalho" placeholder="Telefone Trabalho"
                     bind:value={formData.tel_trabalho} />
-                <Input name="telemovel" label="Telemóvel" placeholder="Telemóvel" bind:value={formData.telemovel} />
+                <PhoneInput name="telemovel" label="Telemóvel" placeholder="Telemóvel"
+                    bind:value={formData.telemovel} />
             </div>
             <div class="col-span-2">
                 <div class="flex items-center mb-6">
