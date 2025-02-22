@@ -19,17 +19,17 @@
 		observacoes: ''
 	});
 
-	function isValidPhoneNumber(phone: string): boolean {
-		const portuguesePhonePattern = /^(?:\+351\s?)?(9\d{8}|2\d{8})$/;
-		return portuguesePhonePattern.test(phone.trim());
-	}
+	// function isValidPhoneNumber(phone: string): boolean {
+	// 	const portuguesePhonePattern = /^(?:\+351\s?)?(9\d{8}|2\d{8})$/;
+	// 	return portuguesePhonePattern.test(phone.trim());
+	// }
 
-	let isDisabled = $derived(
-		() =>
-			(formData.telemovel.trim() !== '' && isValidPhoneNumber(formData.telemovel)) ||
-			(formData.tel_residencial.trim() !== '' && isValidPhoneNumber(formData.tel_residencial)) ||
-			(formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
-	);
+	// let isDisabled = $derived(
+	// 	() =>
+	// 		(formData.telemovel.trim() !== '' && isValidPhoneNumber(formData.telemovel)) ||
+	// 		(formData.tel_residencial.trim() !== '' && isValidPhoneNumber(formData.tel_residencial)) ||
+	// 		(formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
+	// );
 
 	let isLoading = false;
 	let successMessage = '';
@@ -74,28 +74,29 @@
 			<!-- Left Column -->
 			<div>
 				<Input
-					type={'test'}
-					required={false}
-					title={'test'}
-					pattern={'test'}
-					maxlength={1}
-					errorMessage={'error'}
-					name={'nome'}
+					name="nome"
 					label="Nome"
+					pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$"
+					errorMessage="O nome nao pode conter simbolos ou numeros!"
 					placeholder="John Doe"
 					bind:value={formData.nome}
 				/>
 				<Input
 					name="email"
 					label="Email"
-					type="email"
+					pattern="^[^@]+@[^@]+\.[^@]+$"
+					errorMessage="Email inválido!"
 					placeholder="johndoe@example.com"
 					bind:value={formData.email}
-					pattern="^[^@]+@[^@]+\.[^@]+$"
-					required
-					errorMessage="Email inválido!"
 				/>
-				<Input name="horario" label="Horário" placeholder="HH:MM" bind:value={formData.horario} />
+				<Input
+					name="horario"
+					label="Horário"
+					pattern="^(?:[01]\d|2[0-3]):[0-5]\d$"
+					errorMessage="Hora inválida!"
+					placeholder="HH:MM"
+					bind:value={formData.horario}
+				/>
 				<Checkbox name="doador" label="Doador" bind:checked={formData.doador} />
 				<Input
 					name="local_cobranca"
@@ -123,38 +124,31 @@
 				<Input
 					name="codigo_postal"
 					label="C.P."
+					pattern="^\d{4}-\d{3}$"
 					placeholder="Código Postal"
-					bind:value={formData.codigo_postal}
-					maxlength={8}
-					required
 					errorMessage="Código Postal inválido!"
+					bind:value={formData.codigo_postal}
 				/>
 				<Input
 					name="tel_residencial"
 					label="Tel. Residencial"
 					placeholder="Telefone Residencial"
-					bind:value={formData.tel_residencial}
-					pattern="^(9\d{8}|2\d{8})$"
-					maxlength={9}
 					errorMessage="Número de telefone inválido!"
+					bind:value={formData.tel_residencial}
 				/>
 				<Input
 					name="tel_trabalho"
 					label="Tel. Trabalho"
 					placeholder="Telefone Trabalho"
-					bind:value={formData.tel_trabalho}
-					pattern="^(9\d{8}|2\d{8})$"
-					maxlength={9}
 					errorMessage="Número de telefone inválido!"
+					bind:value={formData.tel_trabalho}
 				/>
 				<Input
 					name="telemovel"
 					label="Telemóvel"
 					placeholder="Telemóvel"
-					bind:value={formData.telemovel}
-					pattern="^(9\d{8}|2\d{8})$"
-					maxlength={9}
 					errorMessage="Número de telefone inválido!"
+					bind:value={formData.telemovel}
 				/>
 			</div>
 
@@ -179,7 +173,6 @@
 			<button
 				type="submit"
 				class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
-				disabled={!isDisabled()}
 			>
 				{isLoading ? 'Enviando...' : 'Criar perfil'}
 			</button>

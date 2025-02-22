@@ -1,26 +1,23 @@
 <script lang="ts">
 	let {
-		type,
 		placeholder,
 		name,
 		label,
-		value = $bindable(),
-		title,
-		required,
-		pattern,
-		maxlength,
-		errorMessage
+		required = false,
+		pattern = '^\\d{9}$',
+		maxlength = 9,
+		errorMessage = 'Campo inválido.',
+		value = $bindable()
 	} = $props();
 
 	let isValid = $state(true);
+	$inspect(isValid).with(console.trace);
+	$inspect(value).with(console.trace);
+
 	function validate() {
-		if (!value.trim()) {
-			isValid = required!;
-			return;
-		}
 		if (pattern) {
 			const regex = new RegExp(pattern);
-			isValid = regex.test(value.trim());
+			isValid = regex.test(value);
 		} else {
 			isValid = true;
 		}
@@ -34,10 +31,7 @@
 		{/if}
 		<input
 			id={name}
-			{name}
-			{type}
 			{placeholder}
-			{title}
 			{maxlength}
 			bind:value
 			{required}
