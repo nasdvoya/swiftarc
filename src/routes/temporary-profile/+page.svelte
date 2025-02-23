@@ -19,17 +19,17 @@
 		observacoes: ''
 	});
 
-	// function isValidPhoneNumber(phone: string): boolean {
-	// 	const portuguesePhonePattern = /^(?:\+351\s?)?(9\d{8}|2\d{8})$/;
-	// 	return portuguesePhonePattern.test(phone.trim());
-	// }
+	function isValidPhoneNumber(phone: string): boolean {
+		const portuguesePhonePattern = /^(?:\+351\s?)?(9\d{8}|2\d{8})$/;
+		return portuguesePhonePattern.test(phone.trim());
+	}
 
-	// let isDisabled = $derived(
-	// 	() =>
-	// 		(formData.telemovel.trim() !== '' && isValidPhoneNumber(formData.telemovel)) ||
-	// 		(formData.tel_residencial.trim() !== '' && isValidPhoneNumber(formData.tel_residencial)) ||
-	// 		(formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
-	// );
+	let isDisabled = $derived(
+		() =>
+			(formData.telemovel.trim() !== '' && isValidPhoneNumber(formData.telemovel)) ||
+			(formData.tel_residencial.trim() !== '' && isValidPhoneNumber(formData.tel_residencial)) ||
+			(formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
+	);
 
 	let isLoading = false;
 	let successMessage = '';
@@ -157,7 +157,7 @@
 					<textarea
 						name="observacoes"
 						placeholder="Observações"
-						class="textarea textarea-bordered textarea-lg rounded-lg w-full"
+						class="textarea textarea-bordered textarea-lg rounded-lg w-full focus:outline-none rounded-lg"
 						bind:value={formData.observacoes}
 					></textarea>
 				</div>
@@ -170,12 +170,11 @@
 				Cancelar
 			</button>
 
-			<button
-				type="submit"
-				class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
-			>
-				{isLoading ? 'Enviando...' : 'Criar perfil'}
-			</button>
+            <button type="submit"
+                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
+                disabled={!isDisabled()}>
+                {isLoading ? 'Enviando...' : 'Criar perfil'}
+            </button>
 		</div>
 	</form>
 
