@@ -8,9 +8,9 @@ export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const formData = await request.json();
 
-		if (!formData.nome || !formData.email) {
-			return json({ message: 'Nome e Email são obrigatórios.' }, { status: 400 });
-		}
+		// if (!formData.nome || !formData.email) {
+		// 	return json({ message: 'Nome e Email são obrigatórios.' }, { status: 400 });
+		// }
 
 		const perfil = await prisma.perfil.create({
 			data: {
@@ -33,6 +33,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		return json({ message: 'Perfil criado com sucesso!', id: perfil.id }, { status: 201 });
 	} catch (error) {
 		console.error('Erro no backend:', error);
-		return json({ message: 'Erro interno no servidor.' }, { status: 500 });
+		return json({ message: 'Erro interno no servidor.', error: error }, { status: 500 });
 	}
 };

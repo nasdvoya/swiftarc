@@ -1,7 +1,6 @@
 <script lang="ts">
     import Input from '$lib/Input.svelte';
     import Checkbox from '$lib/Checkbox.svelte';
-    import {onMount} from 'svelte';
 
     let formData = $state({
         nome: '',
@@ -36,6 +35,7 @@
     let errorMessage = '';
 
     async function handleSubmit(event: Event) {
+        console.log('Sending data:', formData);
         event.preventDefault();
 
         isLoading = true;
@@ -48,7 +48,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({...formData})
             });
 
             const data = await response.json();

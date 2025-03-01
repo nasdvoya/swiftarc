@@ -9,9 +9,9 @@ DB_NAME="${POSTGRES_DB:=testdb}"
 DB_PORT="${POSTGRES_PORT:=5432}"
 DB_HOST="${POSTGRES_HOST:=localhost}"
 
-# Allow to skip Podman if a Podman-managed Postgres container is already running
+# Allow to skip Docker if a Postgres container is already running
 if [[ -z "${SKIP_PODMAN}" ]]; then
-    podman run --name postgres-container \
+    docker run --name postgres-container \
         -e POSTGRES_USER=${DB_USER} \
         -e POSTGRES_PASSWORD=${DB_PASSWORD} \
         -e POSTGRES_DB=${DB_NAME} \
