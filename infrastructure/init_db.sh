@@ -9,6 +9,11 @@ DB_NAME="${POSTGRES_DB:=testdb}"
 DB_PORT="${POSTGRES_PORT:=5432}"
 DB_HOST="${POSTGRES_HOST:=localhost}"
 
+# Export DATABASE_URL for the backend to use
+DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
+export DATABASE_URL
+>&2 echo "DATABASE_URL=${DATABASE_URL}"
+
 # Allow to skip Docker if a Postgres container is already running
 if [[ -z "${SKIP_PODMAN}" ]]; then
     docker run --name postgres-container \
@@ -28,8 +33,3 @@ until psql -h "${DB_HOST}" -U "${DB_USER}" -p "${DB_PORT}" -d "postgres" -c '\q'
 done
 
 >&2 echo "Postgres is up and running on ${DB_HOST}:${DB_PORT} - database ${DB_NAME} is ready to use"
-
-# Export DATABASE_URL for the backend to use
-DATABASE_URL="postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}"
-export DATABASE_URL
->&2 echo "DATABASE_URL=${DATABASE_URL}"

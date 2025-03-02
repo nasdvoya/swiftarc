@@ -19,6 +19,9 @@ npx sv create my-app
 Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
 ```bash
+./infrastructure/init_db.sh
+export DATABASE_URL="postgres://postgres:test@localhost:5432/testdb"
+npx prisma migrate dev
 npm run dev
 
 # or start the server and open the app in a new browser tab
