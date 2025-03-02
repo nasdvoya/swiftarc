@@ -24,10 +24,9 @@
 	}
 
 	let isDisabled = $derived(
-		() =>
-			(formData.telemovel.trim() !== '' && isValidPhoneNumber(formData.telemovel)) ||
-			(formData.tel_residencial.trim() !== '' && isValidPhoneNumber(formData.tel_residencial)) ||
-			(formData.tel_trabalho.trim() !== '' && isValidPhoneNumber(formData.tel_trabalho))
+		isValidPhoneNumber(formData.telemovel) ||
+			isValidPhoneNumber(formData.tel_trabalho) ||
+			isValidPhoneNumber(formData.tel_residencial)
 	);
 
 	let isLoading = false;
@@ -55,21 +54,6 @@
 
 			if (response.ok) {
 				successMessage = 'Perfil criado com sucesso!';
-				formData = {
-					nome: '',
-					email: '',
-					horario: '',
-					doador: false,
-					local_cobranca: '',
-					morada: '',
-					freguesia: '',
-					concelho: '',
-					codigo_postal: '',
-					tel_residencial: '',
-					tel_trabalho: '',
-					telemovel: '',
-					observacoes: ''
-				};
 			} else {
 				errorMessage = data.message || 'Erro ao criar o perfil.';
 			}
@@ -120,7 +104,6 @@
 					bind:value={formData.local_cobranca}
 				/>
 			</div>
-
 			<!-- Right Column -->
 			<div>
 				<Input name="morada" label="Morada" placeholder="Morada" bind:value={formData.morada} />
@@ -188,9 +171,9 @@
 			<button
 				type="submit"
 				class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
-				disabled={!isDisabled || isLoading}
+				disabled={!isDisabled}
 			>
-				{isLoading ? 'Enviando...' : 'Criar perfil'}
+				Criar perfil
 			</button>
 		</div>
 	</form>
