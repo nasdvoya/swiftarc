@@ -14,19 +14,32 @@ datasource db {
 }
 
 model Perfil {
+  id               String         @id @default(uuid())
+  nome             String?
+  email            String?        @unique
+  horario          String?
+  doador           Boolean        @default(false)
+  local_cobranca   String?
+  morada           String?
+  freguesia        String?
+  concelho         String?
+  codigo_postal    String?
+  observacoes      String?
+  createdAt        DateTime       @default(now())
+
+  // Relationship to phone numbers
+  phoneNumbers     PhoneNumber[]
+}
+
+model PhoneNumber {
   id              String  @id @default(uuid())
-  nome            String
-  email           String
-  horario         String?
-  doador          Boolean @default(false)
-  local_cobranca  String?
-  morada          String?
-  freguesia       String?
-  concelho        String?
-  codigo_postal   String?
-  tel_residencial String?
-  tel_trabalho    String?
-  telemovel       String?
-  observacoes     String?
-  createdAt       DateTime @default(now())
+  number          String  // Phone number
+  type            String  // Example values: 'residencial', 'trabalho', 'telemovel'
+
+  // Relation to Perfil
+  perfilId        String
+  perfil          Perfil  @relation(fields: [perfilId], references: [id])
+
+  // Unique constraint to ensure phone numbers are unique across all types
+  @@unique([number])  // This ensures the phone number is unique across the entire table
 }

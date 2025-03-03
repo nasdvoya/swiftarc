@@ -23,7 +23,6 @@
         </div>
     </div>
     <div class="navbar-center">
-        <a class="btn btn-ghost text-xl">Inicio</a>
     </div>
     <div class="navbar-end"></div>
 </div>

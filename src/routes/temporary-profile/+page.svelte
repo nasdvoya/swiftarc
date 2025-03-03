@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Input from '$lib/Input.svelte';
 	import Checkbox from '$lib/Checkbox.svelte';
+	import { goto } from '$app/navigation';
 
 	let formData = $state({
 		nome: '',
@@ -18,6 +19,9 @@
 		observacoes: ''
 	});
 
+	let successMessage = $state('');
+	let errorMessage = $state('');
+
 	function isValidPhoneNumber(phone: string): boolean {
 		const portuguesePhonePattern = /^(?:\+351\s?)?(9\d{8}|2\d{8})$/;
 		return portuguesePhonePattern.test(phone.trim());
@@ -29,15 +33,10 @@
 			isValidPhoneNumber(formData.tel_residencial)
 	);
 
-	let isLoading = false;
-	let successMessage = '';
-	let errorMessage = '';
-
 	async function handleSubmit(event: Event) {
 		console.log('Sending data:', formData);
 		event.preventDefault();
 
-		isLoading = true;
 		successMessage = '';
 		errorMessage = '';
 
@@ -54,13 +53,12 @@
 
 			if (response.ok) {
 				successMessage = 'Perfil criado com sucesso!';
+				setTimeout(() => goto('/'), 2000);
 			} else {
 				errorMessage = data.message || 'Erro ao criar o perfil.';
 			}
 		} catch (error) {
 			errorMessage = 'Falha na conexão com o servidor.';
-		} finally {
-			isLoading = false;
 		}
 	}
 </script>
@@ -164,6 +162,7 @@
 			<button
 				type="button"
 				class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg fixed rounded-full bottom-11 left-10 h-20 mb-14"
+				onclick={() => goto('/')}
 			>
 				Cancelar
 			</button>
