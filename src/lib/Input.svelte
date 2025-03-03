@@ -1,13 +1,13 @@
 <script lang="ts">
 	let {
-		placeholder,
-		name,
-		label,
+		placeholder = '',
+		name = '',
+		label = '',
 		required = false,
 		pattern = '^\\d{9}$',
 		maxlength = 9,
 		errorMessage = 'Campo inválido.',
-		value = $bindable()
+		value = $bindable() as string
 	} = $props();
 
 	let isValid = $state(true);
@@ -15,10 +15,9 @@
 	$inspect(value).with(console.trace);
 
 	function validate() {
-        if (value == '') {
-            isValid = true;
-        }
-		else if (pattern) {
+		if (value == '') {
+			isValid = true;
+		} else if (pattern) {
 			const regex = new RegExp(pattern);
 			isValid = regex.test(value);
 		} else {
@@ -33,7 +32,6 @@
 			<label for={name} class="w-1/3 text-gray-700 font-semibold">{label}</label>
 		{/if}
 		<input
-			id={name}
 			{placeholder}
 			{maxlength}
 			bind:value
