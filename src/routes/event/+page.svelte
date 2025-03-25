@@ -2,29 +2,26 @@
 	import Input from '$lib/Input.svelte';
 	import { goto } from '$app/navigation';
 
+	let payment = $state('Cobra');
+	const set_payment = (selected: string) => {
+		payment = selected;
+	};
+
 	let formData = $state({
-		nome: '',
-		email: '',
-		horario: '',
-		doador: false,
+		data_ligacao: '',
+		valor: '',
+		data_coleta: '',
 		local_cobranca: '',
-		morada: '',
-		freguesia: '',
-		concelho: '',
-		codigo_postal: '',
-		tel_residencial: '',
-		tel_trabalho: '',
-		telemovel: '',
 		observacoes: ''
 	});
+
+	$inspect(payment).with(console.trace);
 </script>
 
 <div class="max-w-4xl mx-auto p-6">
 	<h2 class="text-5xl font-bold mb-12 text-center">Perfil temporário</h2>
-
 	<form>
 		<div class="grid grid-cols-2 gap-x-8 gap-y-4 text-left">
-			<!-- Left Column -->
 			<div>
 				<Input
 					name="data"
@@ -32,7 +29,7 @@
 					pattern=""
 					errorMessage="TODO"
 					placeholder="22/03/91"
-					bind:value={formData.nome}
+					bind:value={formData.data_ligacao}
 				/>
 				<Input
 					name="valor"
@@ -40,7 +37,7 @@
 					pattern=""
 					errorMessage="TODO"
 					placeholder="Muitos euros"
-					bind:value={formData.email}
+					bind:value={formData.valor}
 				/>
 				<Input
 					name="data_coleta"
@@ -48,7 +45,7 @@
 					pattern=""
 					errorMessage="TODO"
 					placeholder="HH:MM"
-					bind:value={formData.horario}
+					bind:value={formData.data_coleta}
 				/>
 				<Input
 					name="local_cobranca"
@@ -57,19 +54,17 @@
 					bind:value={formData.local_cobranca}
 				/>
 			</div>
-			<!-- Right Column -->
-			<div>
-				<div class="dropdown dropdown-start ">
-					<div tabindex="0" role="button" class="btn mb-3 rounded-lg bg-base-100">Metod de pagamento ▼</div>
-					<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-					<ul
-						tabindex="0"
-						class="dropdown-content menu z-1 w-52 p-2 shadow-sm"
-					>
-						<li><a>Item 1</a></li>
-						<li><a>Item 2</a></li>
-					</ul>
+			<div class="dropdown dropdown-start">
+				<div tabindex="0" role="button" class="btn mb-3 rounded-lg bg-base-100">
+					Metod de pagamento ▼
 				</div>
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+				<ul tabindex="0" class="dropdown-content menu z-1 w-52 p-2 shadow-sm">
+					<li>
+						<a onclick={() => set_payment('Cobrador')}>Cobrador</a>
+						<a onclick={() => set_payment('Multibanco')}>Multibanco</a>
+					</li>
+				</ul>
 			</div>
 
 			<div class="col-span-2">

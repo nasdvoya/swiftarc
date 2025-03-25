@@ -53,7 +53,7 @@
 
 			if (response.ok) {
 				successMessage = 'Perfil criado com sucesso!';
-				setTimeout(() => goto('/'), 2000);
+				setTimeout(() => goto('/event'), 2000);
 			} else {
 				errorMessage = data.message || 'Erro ao criar o perfil.';
 			}
