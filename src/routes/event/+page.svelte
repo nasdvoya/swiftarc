@@ -29,6 +29,7 @@
 					pattern=""
 					errorMessage="TODO"
 					placeholder="22/03/91"
+                    required={true}
 					bind:value={formData.data_ligacao}
 				/>
 				<Input

@@ -15,8 +15,8 @@
 	$inspect(value).with(console.trace);
 
 	function validate() {
-		if (value == '') {
-			isValid = true;
+		if (required && value.trim() === '') {
+			isValid = false;
 		} else if (pattern) {
 			const regex = new RegExp(pattern);
 			isValid = regex.test(value);
