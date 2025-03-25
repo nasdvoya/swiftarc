@@ -55,14 +55,17 @@
 				/>
 			</div>
 			<div class="dropdown dropdown-start">
-				<div tabindex="0" role="button" class="btn mb-3 rounded-lg bg-base-100">
-					Metod de pagamento ▼
-				</div>
-				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-				<ul tabindex="0" class="dropdown-content menu z-1 w-52 p-2 shadow-sm">
+				<button tabindex="0" class="btn mb-3 rounded-lg bg-base-100"> Metod de pagamento ⭣</button>
+				<ul class="dropdown-content menu z-1 w-52 p-2 shadow-sm bg-base-100">
 					<li>
-						<a onclick={() => set_payment('Cobrador')}>Cobrador</a>
-						<a onclick={() => set_payment('Multibanco')}>Multibanco</a>
+						<button onclick={() => set_payment('cobrador')}>Cobrador</button>
+						<button onclick={() => set_payment('multibanco')}>Multibanco</button>
+						<button onclick={() => set_payment('transf_banc')}>Transferencia bancaria</button>
+						<button onclick={() => set_payment('mbway')}>MBWay</button>
+						<button onclick={() => set_payment('vale_ctt')}>Vale CTT/Corretio registado</button>
+						<button onclick={() => set_payment('paypal')}>Paypal</button>
+						<button onclick={() => set_payment('rsf')}>RSF</button>
+						<button onclick={() => set_payment('outros')}>Outros</button>
 					</li>
 				</ul>
 			</div>
